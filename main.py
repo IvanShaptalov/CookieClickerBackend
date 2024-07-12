@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from app.models.db_util import engine, run_database
+from app.models.db_util import engine
 import logging
-from app.routers import score_increment, get_user, root, user_download, user_upload
+from app.routers import score_increment, get_user, root, user_download, user_upload, create_user
 import uvicorn
 
 
@@ -18,16 +18,17 @@ async def lifespan(app_param: FastAPI):
 
 print('run async main')
 
-# run_database()
-
 app = FastAPI(lifespan=lifespan)
 
+# adding routers
 app.include_router(root.router)
 app.include_router(user_download.router)
 app.include_router(user_upload.router)
 app.include_router(score_increment.router)
 app.include_router(get_user.router)
+app.include_router(create_user.router)
 print('*'*80)
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=5000, reload=False)
