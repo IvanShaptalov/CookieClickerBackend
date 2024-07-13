@@ -10,7 +10,7 @@ meta = MetaData()
 users = sqlalchemy.Table(
     "users",
     meta,
-    sqlalchemy.Column("id", sqlalchemy.String, primary_key=True),
+    sqlalchemy.Column("user_id", sqlalchemy.String, primary_key=True),
     sqlalchemy.Column("score", sqlalchemy.Integer),
 )
 
@@ -22,11 +22,12 @@ engine = create_async_engine(
     )
 
 
+async def create_tables():
+    print('tables created')
+    async with engine.begin() as conn:
+        await conn.run_sync(meta.create_all)
+
+
 class User(BaseModel):
-    id: str
+    user_id: str
     score: int
-
-
-class UserIn(BaseModel):
-    score: int
-

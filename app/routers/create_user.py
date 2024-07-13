@@ -21,4 +21,4 @@ async def create_user_endpoint(user: User):
     except DatabaseError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Bad request")
 
-    return Response(content=json.dumps({"user created": result.model_dump()}), status_code=status.HTTP_201_CREATED)
+    return Response(content=json.dumps(result.model_dump()), status_code=status.HTTP_201_CREATED)
