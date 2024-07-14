@@ -1,7 +1,7 @@
 import asyncio
 
 from fastapi import FastAPI
-from app.routers import score_increment, get_user, root, user_download, user_upload, create_user
+from app.routers import score_increment, get_user, root, create_user
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from app.models.db_util import *
@@ -20,8 +20,6 @@ app.add_middleware(
 
 # adding routers
 app.include_router(root.router)
-app.include_router(user_download.router)
-app.include_router(user_upload.router)
 app.include_router(score_increment.router)
 app.include_router(get_user.router)
 app.include_router(create_user.router)

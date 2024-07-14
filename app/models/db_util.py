@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from sqlalchemy import MetaData
 from sqlalchemy.ext.asyncio import create_async_engine
 
-DATABASE_URL = "sqlite+aiosqlite:///test.db"
+DATABASE_URL = "sqlite+aiosqlite:///sklep.db"
 
 meta = MetaData()
 
@@ -24,8 +24,8 @@ engine = create_async_engine(
 
 async def create_tables():
     print('tables created')
-    async with engine.begin() as conn:
-        await conn.run_sync(meta.create_all)
+    async with engine.begin() as session:
+        await session.run_sync(meta.create_all)
 
 
 class User(BaseModel):
